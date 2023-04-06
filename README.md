@@ -37,8 +37,7 @@ For the domain section, my design could be better (having the least knowledge in
   - `http://localhost:5000/` - Home Page
   - `http://localhost:5000/swagger` - API documentation
 - Ports: 5000 http, 5001 https, 5002 mqtt
-- Assign
-- To test MQTT, use `LockId` as `ClientId`, `Username` and `Subscription`
+- To test MQTT, use `LockId` as `ClientId`, `Username`, `Subscription` and send JWT token (`{ jwtToken: "" }`) as the message payload
 - After running `WebApi` project some sample data will be inserted into the database ([DbDataSeeder.cs](https://github.com/mo-esmp/clay-assessment/blob/main/src/SmartLock.Implementation/Data/DbDataSeeder.cs))
 - No need for assigning roles to users (in the video it is shown but not needed)
 - Integration tests rely on a physical database (couldn't use in memory database because Dynamic Authorization lib (need to fix this :/)
