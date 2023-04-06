@@ -20,13 +20,13 @@ public class DbDataSeeder
             return;
 
         var (entranceLock, storageLock) = AddLocks();
-        var (user1, user2) = AddUsers();
-        var (manager, employee) = AddRoles(entranceLock, storageLock);
+        var (managerUser, employeeUser) = AddUsers();
+        var (managerRole, employeeRole) = AddRoles(entranceLock, storageLock);
 
-        //_context.UserRoles.AddRange(
-        //    new UserRoleEntity { RoleId = role1.Id, UserId = user1.Id },
-        //    new UserRoleEntity { RoleId = role2.Id, UserId = user2.Id }
-        //);
+        _context.UserRoles.AddRange(
+            new UserRoleEntity { RoleId = managerRole.Id, UserId = managerUser.Id },
+            new UserRoleEntity { RoleId = employeeRole.Id, UserId = employeeUser.Id }
+        );
 
         await _context.SaveChangesAsync(ct);
     }
@@ -49,9 +49,9 @@ public class DbDataSeeder
         return (entranceLock, storageLock);
     }
 
-    private (UserEntity user1, UserEntity user2) AddUsers()
+    private (UserEntity manager, UserEntity employee) AddUsers()
     {
-        UserEntity user1 = new()
+        UserEntity manager = new()
         {
             Id = DefaultData.ManagerId,
             Email = DefaultData.ManagerEmail,
@@ -62,7 +62,7 @@ public class DbDataSeeder
             UserName = DefaultData.ManagerEmail,
             NormalizedUserName = DefaultData.ManagerEmail.ToUpper(),
         };
-        UserEntity user2 = new()
+        UserEntity employee = new()
         {
             Id = DefaultData.EmployeeId,
             Email = DefaultData.EmployeeEmail,
@@ -75,11 +75,11 @@ public class DbDataSeeder
         };
 
         PasswordHasher<UserEntity> ph = new();
-        user1.PasswordHash = ph.HashPassword(user1, DefaultData.UserPassword);
-        user2.PasswordHash = ph.HashPassword(user2, DefaultData.UserPassword);
-        _context.Users.AddRange(user1, user2);
+        manager.PasswordHash = ph.HashPassword(manager, DefaultData.UserPassword);
+        employee.PasswordHash = ph.HashPassword(employee, DefaultData.UserPassword);
+        _context.Users.AddRange(manager, employee);
 
-        return (user1, user2);
+        return (manager, employee);
     }
 
     private (RoleEntity manager, RoleEntity employee) AddRoles(LockEntity entranceLock, LockEntity storageLock)
