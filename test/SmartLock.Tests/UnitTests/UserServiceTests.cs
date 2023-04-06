@@ -25,6 +25,8 @@ public class UserServiceTests
 
         // Assert
         Assert.IsType<DomainException>(ex);
+
+        // Hard coded messages could be move to resource files https://dev.to/moesmp/what-every-asp-net-core-web-api-project-needs-part-4-error-message-reusability-and-localization-229i
         Assert.Equal("Invalid username or password.", ex.Message);
     }
 
