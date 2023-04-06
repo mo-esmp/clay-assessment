@@ -29,7 +29,7 @@ The architecture of the project is traditional N-Layers, however, in a real-life
 - Separate Service for admin dashboard
 And each service can be scaled based on the traffic
 
-For the domain section, my design could be better (having the least knowledge in this area)
+For the domain section, my design could be better (having the least knowledge in this area). Inside codes, I left some comments and explained what would be an alternative or more appropriate way to tackle the problem.
 
 ## How to test
 - Adjust connection string in `appsettings.Development.json`
